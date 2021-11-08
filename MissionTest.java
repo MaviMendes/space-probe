@@ -1,17 +1,12 @@
-
-/* Versao 1: a classe Position e SpaceInformation foram criadas
-Position formaliza a representacao de uma posicao em coordenadas do plano cartesiano
-SpaceInformation auxilia na prevencao de colisao ao guardar informacao referente a posicao das sondas que ja se movimentaram
-
-Maria Vitoria, 7/11/2021
-
-*/
-
-
-
 package spaceProbe;
 import java.util.ArrayList;
 import java.util.Scanner;;
+
+/* Versao 2: cometários
+
+To do: remover impressoes (System.out.println) que estao poluindo o codigo
+
+*/
 
 public class MissionTest{
 
@@ -26,7 +21,7 @@ public class MissionTest{
 
         /*
         
-        Space: constructor needs only boundaries information
+        Space: constructor needs only boundaries' information
             private Position spaceBoundaries;
                 Position:
                     public final int x; 
@@ -37,7 +32,7 @@ public class MissionTest{
             protected Position coordinate;
             protected Character direction;
             protected ArrayList<Character> movements = new ArrayList<Character>();
-            protected boolean isFirst; // metodo do espaco vai usar isso
+            protected boolean isFirst; 
 
         Mission:
             private ArrayList<SpaceProbe> sondas= new ArrayList<SpaceProbe>();
@@ -47,17 +42,17 @@ public class MissionTest{
 
         Scanner sc = new Scanner(System.in);
 
-        Position pos;
-        int x,y;
-        Character dir;
-        Character control = 'A';
-        ArrayList<Character> arrC = new ArrayList<Character>();
-        ArrayList<SpaceProbe> arrSp = new ArrayList<SpaceProbe>();
-        SpaceProbe inputProbe;
-        int count=1;//count probes just for output layoung sakes
+        Position pos; // store Space and SpaceProbe position information
+        int x,y; // store Position coordinates
+        Character dir; // store movement direction
+        Character control = 'A'; // controls if input continues or stops
+        ArrayList<Character> arrC = new ArrayList<Character>(); // array of movements for the probe
+        ArrayList<SpaceProbe> arrSp = new ArrayList<SpaceProbe>(); // array of probes for the mission
+        SpaceProbe inputProbe; //store probes that will be added
+        int count=1;//count probes 
         
         
-        // space
+        // create space
         System.out.println("Space boundaries, x and then y");
         x = sc.nextInt();
         y = sc.nextInt();
@@ -65,10 +60,10 @@ public class MissionTest{
 
         Space missionSpace1 = new Space(pos); // space created
 
-        // create space probes
+        // Create space probes
 
         System.out.println("Input information about the probes, input X to stop and C to continue");
-        // space probe 1
+        // Space probe 1
         System.out.println("Initial position of probre "+count+", insert x and then y");
         x = sc.nextInt();
         y = sc.nextInt();
@@ -90,7 +85,7 @@ public class MissionTest{
         System.out.println("Add more probes? C to continue, X to stop");
         control = sc.next().charAt(0);
 
-        // others
+        // Create other probes
 
         while(control != 'X'){
 
@@ -127,9 +122,10 @@ public class MissionTest{
         mission1.printSondas();
 
         mission1.moveProbes();
-        System.out.println("Probes at the end5:");
+        System.out.println("Probes at the end:");
         mission1.printProbes();
-    }
 
+        sc.close();
+    }
 
 }

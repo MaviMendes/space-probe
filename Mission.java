@@ -53,8 +53,14 @@ public class Mission {
         Position newExpectedPosition;
         Position movementDirection = new Position(sp.getMovementDirection(sp.direction));
 
+        // verify if new position is valid
         newExpectedPosition = new Position(sp.simulateMovement(sp, movementDirection));
+        if(!sp.consistent(newExpectedPosition, missionArea.getXCoordinate(), missionArea.getYCoordinate())){
+            newExpectedPosition = sp.correctPosition(newExpectedPosition, missionArea.getXCoordinate(), missionArea.getYCoordinate());
+        }
 
+        // check if there is a probe on this position
+        
         if(missionArea.spaceInfo.positionHasProbe(newExpectedPosition)){
             SpaceProbe probeInDesiredPosition = new SpaceProbe(missionArea.spaceInfo.getObjectInPosition(newExpectedPosition));
             probeInDesiredPosition.moveFoward(probeInDesiredPosition, missionArea.getXCoordinate(), missionArea.getYCoordinate()); // move a sonda que estava parada e que iria sofrer colisao
