@@ -8,8 +8,8 @@ public class Position {
         this(0, 0);
     }
 
-    public Position(Position posicao) { // ?
-        this(posicao.x, posicao.y);
+    public Position(Position pos) { 
+        this(pos.x, pos.y);
     }
 
     public Position(int coordX, int coordY) {

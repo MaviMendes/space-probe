@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 public class Mission {
     
-    private ArrayList<SpaceProbe> sondas= new ArrayList<SpaceProbe>();
+    private ArrayList<SpaceProbe> probes= new ArrayList<SpaceProbe>();
     private Space missionArea;
 
-    public Mission(ArrayList<SpaceProbe> sondasInfo, Space missonAreaInfo){
+    public Mission(ArrayList<SpaceProbe> probesInfo, Space missonAreaInfo){
 
-        for(SpaceProbe s:sondasInfo)
-            sondas.add(s);
+        for(SpaceProbe s:probesInfo)
+            probes.add(s);
         
         missionArea = new Space(missonAreaInfo);
     }
@@ -22,7 +22,7 @@ public class Mission {
 
         System.out.println("Move space probes.\n");
         int i=1;
-        for(SpaceProbe s: this.sondas)
+        for(SpaceProbe s: this.probes)
         {
             System.out.println("Moving probe "+i);
             moveSpaceProbe(s);
@@ -76,7 +76,7 @@ public class Mission {
 
         System.out.println("***Probes***");
         int i=1;
-        for(SpaceProbe s:sondas){
+        for(SpaceProbe s:probes){
 
             System.out.println("# Probe "+i);
             System.out.println(s.coordinate.x+","+s.coordinate.y);
