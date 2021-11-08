@@ -31,12 +31,12 @@ public class SpaceProbe {
 
         for(Character movement : movements){
             
+            System.out.println("movement: "+movement);
             makeMove(movement, this,xLimit,yLimit); // call this for each move
             System.out.println("\n");
-            System.out.println("movement: "+movement);
-            System.out.print(this.coordinate.x+" , ");
+            System.out.println("After movement, direction is: "+this.direction);
+            System.out.print("coordinates are: "+this.coordinate.x+" , ");
             System.out.println(this.coordinate.y);
-            System.out.println(this.direction);
             System.out.println("\n");
         }
     }
@@ -46,9 +46,11 @@ public class SpaceProbe {
         System.out.println("make move.\n");
 
         if(typeOfMovement == 'R' || typeOfMovement == 'L'){
+            System.out.println("make move calls change direction");
             changeDirection(typeOfMovement,sp);
         }
         else{
+            System.out.println("make move calls moveFoward");
             moveFoward(sp,xLimit, yLimit);
         }
     }
@@ -87,13 +89,18 @@ public class SpaceProbe {
     // before changing the position for real, make sure the probe is in a valid place considering the constraints
     public void moveFoward(SpaceProbe sp, int xLimit, int yLimit){
 
+        System.out.println("move foward");
+
         Position newPosition;
         Position movementDirection = new Position(getMovementDirection(sp.direction));
 
         newPosition = new Position(simulateMovement(sp, movementDirection));
 
         if(!consistent(newPosition, xLimit, yLimit)){
+            System.out.println("not consistent, on move foward, call correctPosition");
+            System.out.println("newPosition before: "+newPosition.x+","+newPosition.y);
             newPosition = correctPosition(newPosition, xLimit,yLimit);
+            System.out.println("newPosition after correcting it: "+newPosition.x+","+newPosition.y);
         }
 
         // after checking consistency and correcting it, if necessary, position is updated
@@ -104,14 +111,19 @@ public class SpaceProbe {
 
     public Position simulateMovement(SpaceProbe sp,Position movementDirection){
         
+        System.out.println("simulate movement");
+
         int x=0,y=0;
         Position simulated;
         
+        System.out.println("movementDirection: "+movementDirection.x+","+movementDirection.y);
 
         x = sp.coordinate.x + movementDirection.x;
         y = sp.coordinate.y + movementDirection.y;
 
         simulated = new Position(x,y);
+
+        System.out.println("simulated coordinate: "+simulated.x+","+simulated.y);
 
         return simulated;
 
@@ -120,6 +132,8 @@ public class SpaceProbe {
     // each direction is associated with a vector that will be used in the linear transformation
 
     public Position getMovementDirection(Character d){
+
+        System.out.println("get movement direction");
 
         Position vectorIndicatingMovementDirection = new Position();
 
@@ -135,6 +149,8 @@ public class SpaceProbe {
         else if (d == 'W')
             vectorIndicatingMovementDirection = new Position(-1,0);
             
+        System.out.println("Movement direction for direction "+d+" is: "+vectorIndicatingMovementDirection.x+","+vectorIndicatingMovementDirection.y);
+        
         return vectorIndicatingMovementDirection;
 
         }
@@ -143,32 +159,55 @@ public class SpaceProbe {
 
         public boolean consistent(Position position, int xLimit, int yLimit){
 
-            if(position.x < 0)
+            System.out.println("check if it is consistent");
+
+            if(position.x < 0){
+
+                System.out.println("pos x < 0, posx = "+position.x);
                 return false;
-            else if(position.x>xLimit)
+            }
+            else if(position.x>xLimit){
+                System.out.println("pos x > limit, posx = "+position.x+", limit = "+xLimit);
                 return false;
-            else if(position.y < 0)
+            }
+            else if(position.y < 0){
+                System.out.println("pos y < 0, posy = "+position.y);
                 return false;
-            else if(position.y > yLimit)
+            }
+            else if(position.y > yLimit){
+                System.out.println("pos y > limit, posy = "+position.y+", limit = "+yLimit);
                 return false;
-            else   
+            }
+            else{
+                System.out.println("consistency ok");
                 return true;
+            }   
         }
 
 
         public Position correctPosition(Position p, int xLimit, int yLimit){
 
-            Position consistentPosition;
-            int x=0,y=0;
+            System.out.println("correct position");
 
-            if(p.x < 0)
+            Position consistentPosition;
+            int x=p.x,y=p.y;
+
+            if(p.x < 0){
+                System.out.println("px < 0");
                 x = 0;
-            else if(p.x>xLimit)
+            }
+            else if(p.x>xLimit){
+                System.out.println("px > limit");
                 x = xLimit;
-            else if(p.y < 0)
+            }
+            else if(p.y < 0){
+                System.out.println("py < 0");
                 y = 0;
-            else if(p.y > yLimit)
+            }
+            else if(p.y > yLimit){
+                System.out.println("px > 0");
                 y = yLimit;
+            }
             
             consistentPosition = new Position(x,y);
 

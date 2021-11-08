@@ -18,9 +18,11 @@ public class MissionTest{
     public static void main(String[] args) {
         
 
-        // missao: sondas e um espaco
+        // missao: sondas e um espaco onde acontece a missao
         // criar um array list de sondas
         // criar um espaco
+        // criar a missao com as sondas e o espaco
+        // supoem-se que o usuario ira inserir dados consistentes
 
         /*
         
@@ -126,7 +128,7 @@ public class MissionTest{
 
         mission1.moveProbes();
         System.out.println("Probes at the end5:");
-        mission1.printSondas();
+        mission1.printProbes();
     }
 
 

@@ -66,13 +66,13 @@ public class Mission {
     }
 
 
-    public void printSondas(){
+    public void printProbes(){
 
-        System.out.println("***Sondas***");
+        System.out.println("***Probes***");
         int i=1;
         for(SpaceProbe s:sondas){
 
-            System.out.println("# Sonda "+i);
+            System.out.println("# Probe "+i);
             System.out.println(s.coordinate.x+","+s.coordinate.y);
             System.out.println(s.direction);
             System.out.println("______\n");
