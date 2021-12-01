@@ -65,7 +65,7 @@ public class MissionTest{
 
         System.out.println("Input information about the probes, input X to stop and C to continue");
         // Space probe 1
-        System.out.println("Initial position of probre "+count+", insert x and then y");
+        System.out.println("Initial position of probe "+count+", insert x and then y");
         x = sc.nextInt();
         y = sc.nextInt();
         pos = new Position(x,y); 

@@ -9,15 +9,14 @@ public class Mission {
 
     public Mission(SpaceProbe probe, Space missonAreaInfo){
 
-        addProbe(probe);
         missionArea = new Space(missonAreaInfo);
+        addProbe(probe);
     }
 
     public Mission(ArrayList<SpaceProbe> probesToAdd, Space missonAreaInfo){
 
-        addProbes(probesToAdd);
         missionArea = new Space(missonAreaInfo);
-
+        addProbes(probesToAdd);
         missionArea.spaceInfo.showProbes();
     }
 
