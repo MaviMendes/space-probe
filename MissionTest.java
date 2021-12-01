@@ -119,7 +119,7 @@ public class MissionTest{
         Mission mission1 = new Mission(arrSp,missionSpace1);
 
         System.out.println("Probes at the beggining:");
-        mission1.printSondas();
+        mission1.printProbes();
 
         mission1.moveProbes();
         System.out.println("Probes at the end:");
