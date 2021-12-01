@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class SpaceProbe {
 
     protected Position coordinate;
-    protected Character direction;
+    protected Character direction; // change for Direction enum later
     protected ArrayList<Character> movements = new ArrayList<Character>();
     protected boolean isFirst; // metodo do espaco vai usar isso
 

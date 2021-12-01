@@ -1,10 +1,11 @@
 package spaceProbe;
 import java.util.ArrayList;
-import java.util.Scanner;;
+import java.util.Scanner;
 
-/* Versao 2: cometários
+/* Versao 3:
 
-To do: remover impressoes (System.out.println) que estao poluindo o codigo
+verificar se a nave, ao pousar (iniciar movimento) vai colidir, se sim, passar pra proxima
+verificar se a nave, a partir da segunda, ira colidir, se sim, evitar isso
 
 */
 
@@ -12,7 +13,7 @@ public class MissionTest{
 
     public static void main(String[] args) {
         
-
+        
         // missao: sondas e um espaco onde acontece a missao
         // criar um array list de sondas
         // criar um espaco
@@ -84,6 +85,7 @@ public class MissionTest{
 
         System.out.println("Add more probes? C to continue, X to stop");
         control = sc.next().charAt(0);
+
 
         // Create other probes
 

@@ -7,12 +7,40 @@ public class Mission {
     private ArrayList<SpaceProbe> probes= new ArrayList<SpaceProbe>();
     private Space missionArea;
 
-    public Mission(ArrayList<SpaceProbe> probesInfo, Space missonAreaInfo){
+    public Mission(SpaceProbe probe, Space missonAreaInfo){
 
-        for(SpaceProbe s:probesInfo)
-            probes.add(s);
-        
+        addProbe(probe);
         missionArea = new Space(missonAreaInfo);
+    }
+
+    public Mission(ArrayList<SpaceProbe> probesToAdd, Space missonAreaInfo){
+
+        addProbes(probesToAdd);
+        missionArea = new Space(missonAreaInfo);
+
+        missionArea.spaceInfo.showProbes();
+    }
+
+    public void addProbes(ArrayList<SpaceProbe> probes){
+
+        for(SpaceProbe newProbe: probes){
+            if(addProbe(newProbe))
+                System.out.println("New probe added: "+newProbe);
+            else{
+               System.out.println("Probe "+newProbe+" not added, would colide with another probe");
+            }
+        }
+
+    }
+
+    public boolean addProbe(SpaceProbe newProbe){
+        if(missionArea.spaceInfo.positionHasProbe(newProbe.coordinate))
+            return false;
+        else{
+            probes.add(newProbe);
+            missionArea.spaceInfo.addProbeToSpace(newProbe);
+            return true;
+        }
     }
 
     // mover sonda no espaco: 1- checar se eh a primeira e se colide
@@ -24,6 +52,7 @@ public class Mission {
         int i=1;
         for(SpaceProbe s: this.probes)
         {
+            missionArea.spaceInfo.removeProbeFromPositon(s); // probe will be added to its final position after moving
             System.out.println("Moving probe "+i);
             moveSpaceProbe(s);
             missionArea.spaceInfo.addProbeToSpace(s);
@@ -38,36 +67,50 @@ public class Mission {
         if(s.isFirst)
             s.move(s.movements,missionArea.getXCoordinate(),missionArea.getYCoordinate());
 
-        else if(!s.isFirst)
-            for (Character movement : s.movements)
-                if(movement == 'M')
-                    preventColision(s);
-                else   
+        else if(!s.isFirst){
+            for (Character movement : s.movements){
+                if(movement == 'M'){
+                    boolean colision = willColide(s);
+                    if(colision){
+                        System.out.println("This probe would colide with the previous one, therefore it will not move anymore.");
+                        break;
+                    }
+                    else continue;
+                }
+                else
                     s.changeDirection(movement,s);
+            }
+        }
+
     }
 
-    public void preventColision(SpaceProbe sp){
+    public boolean willColide(SpaceProbe sp){
 
-        System.out.println("preventColision.\n");
+        System.out.println("Will a colision happen? Check this before continue moving.\n");
 
         Position newExpectedPosition;
         Position movementDirection = new Position(sp.getMovementDirection(sp.direction));
 
-        // verify if new position is valid
+        // verify if new position is valid, if it is not, correct it
         newExpectedPosition = new Position(sp.simulateMovement(sp, movementDirection));
         if(!sp.consistent(newExpectedPosition, missionArea.getXCoordinate(), missionArea.getYCoordinate())){
             newExpectedPosition = sp.correctPosition(newExpectedPosition, missionArea.getXCoordinate(), missionArea.getYCoordinate());
         }
 
-        // check if there is a probe on this position
+        // check if there is a probe on this position, now that the probe has a valid position
         
         if(missionArea.spaceInfo.positionHasProbe(newExpectedPosition)){
-            SpaceProbe probeInDesiredPosition = new SpaceProbe(missionArea.spaceInfo.getObjectInPosition(newExpectedPosition));
-            probeInDesiredPosition.moveFoward(probeInDesiredPosition, missionArea.getXCoordinate(), missionArea.getYCoordinate()); // move a sonda que estava parada e que iria sofrer colisao
+            System.out.println("A colision will happen, move not allowed");
+            return true;
+           /* SpaceProbe probeInDesiredPosition = new SpaceProbe(missionArea.spaceInfo.getObjectInPosition(newExpectedPosition));
+            probeInDesiredPosition.moveFoward(probeInDesiredPosition, missionArea.getXCoordinate(), missionArea.getYCoordinate());*/ // move a sonda que estava parada e que iria sofrer colisao
         }
-
-        // after avoiding colision, the current probe can be safely moved
-        sp.moveFoward(sp,missionArea.getXCoordinate(), missionArea.getYCoordinate());
+        else{
+            // after avoiding colision, the current probe can be safely moved
+            System.out.println("A colision will not happen, movement allowed, newExpectedPositon is "+newExpectedPosition);
+            sp.moveFoward(sp,missionArea.getXCoordinate(), missionArea.getYCoordinate());
+            return false;
+        }
         
     }
 
